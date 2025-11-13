@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NumberPlanet – Full Page v9R</title>
 
-<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
@@ -47,12 +45,6 @@
   .blue{color:#3b82f6} .teal{color:#14b8a6} .green{color:#22c55e} .purple{color:#8b5cf6}
   .hvr-rise{transition:transform .18s ease, box-shadow .18s ease}
   .hvr-rise:hover{transform:translateY(-4px); box-shadow:0 18px 36px -18px rgba(2,6,23,.28)}
-  .reveal{opacity:0; transform:translateY(10px); transition:opacity .45s ease, transform .45s ease}
-  .reveal.show{opacity:1; transform:none}
-  .np-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgb(226 232 240)}
-  .np-nav a{padding:.5rem .75rem;border-radius:.5rem;color:#334155;font-weight:600}
-  .np-nav a:hover{background:rgba(59,130,246,.08);color:#1d4ed8}
-  .np-nav a.active{background:rgba(59,130,246,.12);color:#1d4ed8}
 </style>
 </head>
 <body class="antialiased bg-white">
@@ -76,7 +68,7 @@
 <!-- HERO -->
 <section class="hero-bg">
   <div class="container-ll py-16 text-center">
-    <img src="./images/LOGO BICI_A.png" alt="NumberPlanet 로고" class="mx-auto max-w-[900px] h-auto object-contain reveal show">
+    <img src="./images/LOGO BICI_A.png" alt="NumberPlanet 로고" class="mx-auto max-w-[900px] h-auto object-contain">
     <h1 class="text-4xl md:text-5xl font-extrabold mt-6">사칙연산을 게임으로!</h1>
     <p class="text-slate-700 text-lg md:text-2xl mt-3">재미있는 게임을 통해 수학 실력을 키워보세요</p>
   </div>
@@ -89,20 +81,15 @@
     <p class="text-center text-slate-600 mt-3">넘버플래닛은 사칙연산을 재미있는 게임으로 만든 학습 플랫폼입니다</p>
 
     <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div class="rounded-2xl shadow-lg overflow-hidden hvr-rise reveal show">
-        <img src="./images/KOA_MWDROP_B.png" alt="게임 플레이 포스터" class="w-full h-auto object-cover">
+      <div class="rounded-2xl shadow-lg overflow-hidden">
+        <img src="./images/KOA_MWDROP_B.png" alt="게임 포스터" class="w-full h-auto object-cover">
       </div>
       <div>
         <div class="store-row mb-4">
-          <a class="store" href="#"><svg><use href="#ico-gplay"/></svg>
-            <div><div class="text-[10px]">GET IT ON</div><div class="text-[14px] font-semibold">Google Play</div></div></a>
-          <a class="store" href="#"><svg><use href="#ico-onestore"/></svg>
-            <div><div class="text-[10px]">Get it on</div><div class="text-[14px] font-semibold">ONE store</div></div></a>
+          <a class="store" href="#"><svg><use href="#ico-gplay"/></svg><div><div class="text-[10px]">GET IT ON</div><div class="text-[14px] font-semibold">Google Play</div></div></a>
+          <a class="store" href="#"><svg><use href="#ico-onestore"/></svg><div><div class="text-[10px]">Get it on</div><div class="text-[14px] font-semibold">ONE store</div></div></a>
         </div>
-        <p class="text-slate-700">
-          현재 출시된 첫 번째 게임으로, 덧셈을 재미있게 배울 수 있는 게임입니다.
-          다양한 레벨과 도전 과제를 통해 자연스럽게 덧셈 실력을 키울 수 있어요.
-        </p>
+        <p class="text-slate-700">현재 출시된 첫 번째 게임으로, 덧셈을 재미있게 배울 수 있는 게임입니다. 다양한 레벨과 도전 과제를 통해 자연스럽게 덧셈 실력을 키울 수 있어요.</p>
         <ul class="mt-5 space-y-3 text-slate-700">
           <li>빠른 이해가 가능한 드래그 & 사칙 연산</li>
           <li>보드 & 숫자 확장을 통한 점진적 난이도 상승과 성장</li>
@@ -111,48 +98,11 @@
       </div>
     </div>
 
-    <div class="mt-14 reveal show">
+    <div class="mt-14">
       <h3 class="text-2xl md:text-3xl font-bold text-center">게임플레이 영상</h3>
-      <div class="mt-6 bg-slate-100 rounded-2xl shadow hvr-rise aspect-video">
+      <div class="mt-6 bg-slate-100 rounded-2xl shadow aspect-video">
         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/IdZO5JSM0uk?si=DoI0nOFkBKdJxW2V&autoplay=1&mute=1&loop=1&playlist=IdZO5JSM0uk" title="NumberPlanet Gameplay" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
-    </div>
-
-    <div class="mt-14 reveal show">
-      <h3 class="text-2xl md:text-3xl font-bold text-center">모바일 게임 화면</h3>
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
-        <div class="bg-slate-100 rounded-3xl shadow p-6 w-[432px] hvr-rise">
-          <div class="bg-black rounded-2xl p-4 mx-auto" style="width:280px">
-            <div class="bg-slate-200 rounded-xl grid place-items-center" style="aspect-ratio:9/19">
-              <p class="text-slate-600 text-sm">게임 플레이 화면</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-slate-100 rounded-3xl shadow p-6 w-[432px] hvr-rise">
-          <div class="bg-black rounded-2xl p-4 mx-auto" style="width:280px">
-            <div class="bg-slate-200 rounded-xl grid place-items-center" style="aspect-ratio:9/19">
-              <p class="text-slate-600 text-sm">게임 랭킹 화면</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features" class="section bg-slate-50">
-  <div class="container-ll">
-    <h2 class="text-center text-3xl md:text-4xl font-bold">게임 특징</h2>
-    <p class="text-center text-slate-600 mt-3">넘버플래닛에서 특별한 숫자 모험을 즐겨보세요</p>
-
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="card p-5 hvr-rise reveal show"><h3 class="font-semibold">재미있는 게임플레이</h3><p class="text-slate-600 text-sm mt-1">지루한 반복이 아닌 이야기가 있는 게임으로 연산 능력을 길러보세요</p></div>
-      <div class="card p-5 hvr-rise reveal show"><h3 class="font-semibold">성취 시스템</h3><p class="text-slate-600 text-sm mt-1">일일 보상을 통해 반복, 지속적인 학습 동기를 제공합니다</p></div>
-      <div class="card p-5 hvr-rise reveal show"><h3 class="font-semibold">학습 효과</h3><p class="text-slate-600 text-sm mt-1">게임을 통해 자연스럽게 연산 능력과 수학적 사고력을 기를 수 있습니다</p></div>
-      <div class="card p-5 hvr-rise reveal show"><h3 class="font-semibold">학습 관리</h3><p class="text-slate-600 text-sm mt-1">개인별 학습 진도와 성취도를 한눈에 관리합니다</p></div>
-      <div class="card p-5 hvr-rise reveal show"><h3 class="font-semibold">친구와 경쟁</h3><p class="text-slate-600 text-sm mt-1">친구들과 점수를 비교하며 건전한 경쟁을 즐길 수 있습니다</p></div>
-      <div class="card p-5 hvr-rise reveal show"><h3 class="font-semibold">모바일 최적화</h3><p class="text-slate-600 text-sm mt-1">언제 어디서나 스마트폰으로 편리하게 게임을 즐기세요</p></div>
     </div>
   </div>
 </section>
@@ -164,40 +114,55 @@
     <p class="text-center text-slate-600 mt-3">교육과 게임을 사랑하는 전문가들이 모여 만든 팀입니다</p>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-6">
-      <div class="card p-5 text-center hvr-rise reveal show"><img src="./images/그림1.png" alt="박재정" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover"><div class="font-semibold">박재정</div><div class="text-slate-500 text-sm">기획 / 프로젝트 총괄</div></div>
-      <div class="card p-5 text-center hvr-rise reveal show"><img src="./images/그림2.png" alt="이건욱" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover"><div class="font-semibold">이건욱</div><div class="text-slate-500 text-sm">프로그래머</div></div>
-      <div class="card p-5 text-center hvr-rise reveal show"><img src="./images/그림3.png" alt="장영환" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover"><div class="font-semibold">장영환</div><div class="text-slate-500 text-sm">아티스트</div></div>
-      <div class="card p-5 text-center hvr-rise reveal show"><img src="./images/그림4.png" alt="이진영" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover"><div class="font-semibold">이진영</div><div class="text-slate-500 text-sm">마케팅 / 사업기획</div></div>
+      <div class="card p-5 text-center">
+        <img src="./images/그림1.png" alt="박재정" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">박재정</div>
+        <div class="text-slate-500 text-sm">기획 / 프로젝트 총괄</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left list-disc list-inside">
+          <li>Number Planet 기획 및 총괄 전 과정 리드</li>
+          <li>총 18년 경력의 시스템·콘텐츠 풀스택 기획자</li>
+          <li>前 CCR PD, 前 구로발게임즈 콘텐츠 파트장 등</li>
+          <li>초기 기획부터 런칭·라이브 운영까지 다수 프로젝트 경험</li>
+        </ul>
+      </div>
+
+      <div class="card p-5 text-center">
+        <img src="./images/그림2.png" alt="이건욱" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">이건욱</div>
+        <div class="text-slate-500 text-sm">프로그래머</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left list-disc list-inside">
+          <li>클라이언트/서버 로직 구현 담당</li>
+          <li>다양한 장르의 개발 경험을 보유한 풀사이클 개발자</li>
+          <li>캐주얼·MMORPG·교육용 앱 클라이언트 개발 담당</li>
+          <li>개인 프로젝트 및 외주를 통한 런칭 경험 보유</li>
+        </ul>
+      </div>
+
+      <div class="card p-5 text-center">
+        <img src="./images/그림3.png" alt="장영환" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">장영환</div>
+        <div class="text-slate-500 text-sm">아티스트</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left list-disc list-inside">
+          <li>캐릭터/배경/UI디자인</li>
+          <li>10년 이상 2D 그래픽 및 UI 전문 아티스트</li>
+          <li>前 스튜디오한 아트실장, 前 더블빅토리 아트디렉터</li>
+          <li>직관적이고 감성적인 비주얼 스타일 구축</li>
+        </ul>
+      </div>
+
+      <div class="card p-5 text-center">
+        <img src="./images/그림4.png" alt="이진영" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">이진영</div>
+        <div class="text-slate-500 text-sm">마케팅 / 사업기획</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left list-disc list-inside">
+          <li>마케팅 전략 및 서비스 운영 담당</li>
+          <li>마케팅·사업 기획 및 유저 커뮤니티 운영 경력</li>
+          <li>前 넥스터 경영기획팀, 前 디캐릭 이벤트 마케팅 담당</li>
+          <li>이벤트·브랜딩·사업기획 전반 경험</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- ROADMAP -->
-<section id="roadmap" class="section bg-slate-50">
-  <div class="container-ll">
-    <h2 class="text-center text-3xl md:text-4xl font-bold">개발 로드맵</h2>
-    <p class="text-center text-slate-600 mt-2">넘버플래닛의 미래 계획을 확인해보세요</p>
-    <div class="timeline">
-      <div class="milestone right"><span class="node" style="background:#3b82f6">1</span><span class="arm"></span><div></div><div class="step blue"><div class="text-xs text-slate-500 mb-1">2026 Q1 · 더하기</div><h3 class="font-semibold">더하기의 왕</h3><p class="text-slate-600 text-sm">출시 완료 – 덧셈 학습을 위한 첫 번째 게임</p></div></div>
-      <div class="milestone left"><span class="node" style="background:#14b8a6">2</span><span class="arm"></span><div class="step teal"><div class="text-xs text-slate-500 mb-1">2026 Q2 · 빼기</div><h3 class="font-semibold">빼기의 왕</h3><p class="text-slate-600 text-sm">개발 예정 – 뺄셈 학습을 위한 두 번째 게임</p></div><div></div></div>
-      <div class="milestone right"><span class="node" style="background:#22c55e">3</span><span class="arm"></span><div></div><div class="step green"><div class="text-xs text-slate-500 mb-1">2026 Q3 · 곱하기</div><h3 class="font-semibold">곱하기의 왕 (예정)</h3><p class="text-slate-600 text-sm">기획 단계 – 곱셈 학습을 위한 세 번째 게임</p></div></div>
-      <div class="milestone left"><span class="node" style="background:#8b5cf6">4</span><span class="arm"></span><div class="step purple"><div class="text-xs text-slate-500 mb-1">2027 Q4 · 나누기</div><h3 class="font-semibold">나누기의 왕 (예정)</h3><p class="text-slate-600 text-sm">계획 중 – 나눗셈 학습을 위한 네 번째 게임</p></div><div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-slate-900 text-slate-200 py-12">
-  <div class="container-ll">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div><div class="text-lg font-semibold">넘버플래닛</div><div class="text-slate-400 text-sm">NumberPlanet Game Studio</div><p class="text-slate-400 text-sm mt-2">사칙연산을 게임으로 구현한 학습형 게임 플랫폼을 개발하는 인디 게임 스튜디오입니다.</p></div>
-      <div><div class="text-lg font-semibold">게임</div><ul class="text-slate-400 text-sm mt-2 space-y-1"><li>더하기의 왕</li><li>빼기의 왕 (예정)</li><li>곱하기의 왕 (예정)</li><li>나누기의 왕 (예정)</li></ul></div>
-      <div><div class="text-lg font-semibold">빠른 링크</div><ul class="text-slate-400 text-sm mt-2 space-y-1"><li>다운로드</li><li>게임 가이드</li><li>고객지원</li></ul></div>
-    </div>
-    <div class="text-slate-500 text-xs mt-6">© 2025 넘버플래닛 게임 스튜디오. All rights reserved.</div>
-    <div class="text-slate-500 text-xs">개인정보처리방침 · 이용약관 · 문의하기</div>
-  </div>
-</footer>
-
 </body>
 </html>
