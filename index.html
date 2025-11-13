@@ -3,88 +3,142 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NumberPlanet – Full Page v11</title>
+<title>NumberPlanet – Full Page v9R</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --np-primary:#3b82f6;
+    --np-secondary:#14b8a6;
+    --np-accent:#8b5cf6;
+    --np-ink:#0f172a;
+    --np-muted:#64748b;
+    --np-hero:linear-gradient(180deg,#F6FAFF 0%,#F1F6FF 100%);
+  }
+  html,body{font-family:'Noto Sans KR',ui-sans-serif,system-ui;word-break:keep-all;color:var(--np-ink)}
+  html{scroll-behavior:smooth}
+  .container-ll{max-width:1152px;margin:0 auto;padding:0 20px}
+  .section{padding:72px 0}
+  .hero-bg{background:var(--np-hero)}
+  .card{background:#fff;border:1px solid rgb(226 232 240);border-radius:16px;box-shadow:0 10px 24px -14px rgba(2,6,23,.18)}
+  .ico-bubble{width:3.75rem;height:3.75rem;border-radius:9999px;display:grid;place-items:center}
+  .store-row{display:flex;gap:.75rem;flex-wrap:wrap}
+  .store{display:inline-flex;align-items:center;gap:.6rem;background:#0f0f10;color:#fff;border-radius:.9rem;
+         padding:.65rem .9rem;line-height:1;box-shadow:0 14px 28px -18px rgba(0,0,0,.6);
+         transition:transform .18s ease, box-shadow .18s ease, filter .18s ease}
+  .store:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 20px 34px -20px rgba(0,0,0,.7);filter:brightness(1.05)}
+  .store svg{width:22px;height:22px}
+
+  .timeline{position:relative;margin-top:28px}
+  .timeline:before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgb(203 213 225);transform:translateX(-50%)}
+  .milestone{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin:44px 0}
+  .milestone .node{position:absolute;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:9999px;color:#fff;
+                   display:grid;place-items:center;font-weight:800;box-shadow:0 0 0 6px rgba(59,130,246,.12);z-index:2}
+  .milestone .arm{position:absolute;top:16px;height:2px;width:calc(50% - 32px);background:rgb(203 213 225);z-index:1}
+  .milestone.right .arm{left:50%} .milestone.left .arm{right:50%}
+  .step{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(2,6,23,.08);padding:28px 28px}
+  .step:before{content:'';position:absolute;left:0;right:0;top:0;height:6px;background:currentColor;opacity:.95}
+  .blue{color:#3b82f6} .teal{color:#14b8a6} .green{color:#22c55e} .purple{color:#8b5cf6}
+
+  .hvr-rise{transition:transform .18s ease, box-shadow .18s ease}
+  .hvr-rise:hover{transform:translateY(-4px); box-shadow:0 18px 36px -18px rgba(2,6,23,.28)}
+  .reveal{opacity:0; transform:translateY(10px); transition:opacity .45s ease, transform .45s ease}
+  .reveal.show{opacity:1; transform:none}
+  .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0% 2px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .2s ease}
+  .link-underline:hover{background-size:100% 2px}
+
+  .np-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgb(226 232 240)}
+  .np-nav a{padding:.5rem .75rem;border-radius:.5rem;color:#334155;font-weight:600}
+  .np-nav a:hover{background:rgba(59,130,246,.08);color:#1d4ed8}
+  .np-nav a.active{background:rgba(59,130,246,.12);color:#1d4ed8}
+  .np-mobile{display:none}
+  @media (max-width: 900px){
+    .np-desktop{display:none}
+    .np-mobile{display:block}
+  }
+</style>
 </head>
+<body class="antialiased bg-white">
 
-<body class="bg-white font-[Noto Sans KR] antialiased">
-
-<!-- HEADER -->
-<header class="bg-white border-b border-slate-200 py-3 sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto flex justify-between items-center px-4">
+<header class="np-header">
+  <div class="container-ll py-3 flex items-center justify-between gap-3">
     <div class="flex items-center gap-3">
-      <img src="./images/LOGO_BICI_A.png" alt="NumberPlanet" class="h-8">
-      <strong class="text-slate-800 text-lg font-bold">NumberPlanet</strong>
+      <img src="./images/LOGO BICI_A.png" alt="NumberPlanet" style="height:32px;width:auto;object-fit:contain">
+      <strong class="text-slate-800">NumberPlanet</strong>
     </div>
-    <nav class="hidden md:flex gap-4 font-semibold text-slate-700">
-      <a href="#intro" class="hover:text-blue-600">게임소개</a>
-      <a href="#features" class="hover:text-blue-600">특징</a>
-      <a href="#team" class="hover:text-blue-600">팀소개</a>
-      <a href="#roadmap" class="hover:text-blue-600">로드맵</a>
-      <a href="#contact" class="hover:text-blue-600">문의</a>
+    <nav class="np-nav np-desktop flex items-center gap-1 ml-auto">
+      <a href="#intro">게임소개</a>
+      <a href="#features">특징</a>
+      <a href="#team">팀소개</a>
+      <a href="#roadmap">로드맵</a>
+      <a href="#contact">문의</a>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="text-center py-16 bg-gradient-to-b from-blue-50 to-white">
-  <img src="./images/poster.png" alt="NumberPlanet 포스터" class="mx-auto max-w-[900px] rounded-2xl shadow-lg">
-  <h1 class="text-4xl md:text-5xl font-extrabold mt-6 text-slate-800">사칙연산을 게임으로!</h1>
-  <p class="text-slate-600 text-lg md:text-xl mt-2">넘버플래닛과 함께 숫자 왕국을 구해주세요</p>
-</section>
-
-<!-- 🎬 비디오 섹션 -->
-<section id="video" class="max-w-6xl mx-auto py-12 px-4">
-  <h2 class="text-3xl font-bold text-center mb-6">게임플레이 영상</h2>
-  <div class="rounded-2xl shadow-lg overflow-hidden aspect-video bg-black">
-    <iframe
-      src="https://www.youtube.com/embed/IdZO5JSM0uk"
-      title="NumberPlanet Gameplay"
-      frameborder="0"
-      allowfullscreen
-      class="w-full h-full"></iframe>
+<section class="hero-bg">
+  <div class="container-ll py-16 text-center">
+    <img src="./images/LOGO BICI_A.png" alt="NumberPlanet 로고" class="mx-auto max-w-[900px] h-auto object-contain reveal show">
+    <h1 class="text-4xl md:text-5xl font-extrabold mt-6">사칙연산을 게임으로!</h1>
+    <p class="text-slate-700 text-lg md:text-2xl mt-3">재미있는 게임을 통해 수학 실력을 키워보세요</p>
   </div>
 </section>
 
-<!-- TEAM -->
-<section id="team" class="bg-white py-16">
-  <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-3xl md:text-4xl font-bold text-center">팀 소개</h2>
-    <p class="text-center text-slate-600 mt-2">교육과 게임을 사랑하는 전문가들이 모여 만든 인디 스튜디오</p>
+<section id="intro" class="section bg-white">
+  <div class="container-ll">
+    <h2 class="text-center text-3xl md:text-4xl font-bold">게임 소개</h2>
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="rounded-2xl shadow-lg overflow-hidden hvr-rise reveal show">
+        <img src="./images/KOA_MWDROP_B.png" alt="게임 플레이 포스터" class="w-full h-auto object-cover">
+      </div>
+      <div>
+        <div class="store-row mb-4">
+          <a class="store" href="#"><svg><use href="#ico-gplay"/></svg><div><div class="text-[10px]">GET IT ON</div><div class="text-[14px] font-semibold">Google Play</div></div></a>
+          <a class="store" href="#"><svg><use href="#ico-onestore"/></svg><div><div class="text-[10px]">Get it on</div><div class="text-[14px] font-semibold">ONE store</div></div></a>
+        </div>
+      </div>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-10">
-      <div class="text-center">
-        <img src="./images/그림1.png" alt="박재정" class="w-28 h-28 rounded-full mx-auto mb-3 object-cover shadow-md">
-        <div class="font-bold text-lg">박재정</div>
-        <div class="text-slate-500 text-sm">기획 / 프로젝트 총괄</div>
-      </div>
-      <div class="text-center">
-        <img src="./images/그림3.png" alt="장영환" class="w-28 h-28 rounded-full mx-auto mb-3 object-cover shadow-md">
-        <div class="font-bold text-lg">장영환</div>
-        <div class="text-slate-500 text-sm">아티스트</div>
-      </div>
-      <div class="text-center">
-        <img src="./images/그림2.png" alt="이건욱" class="w-28 h-28 rounded-full mx-auto mb-3 object-cover shadow-md">
-        <div class="font-bold text-lg">이건욱</div>
-        <div class="text-slate-500 text-sm">프로그래머</div>
-      </div>
-      <div class="text-center">
-        <img src="./images/그림4.png" alt="이진영" class="w-28 h-28 rounded-full mx-auto mb-3 object-cover shadow-md">
-        <div class="font-bold text-lg">이진영</div>
-        <div class="text-slate-500 text-sm">마케팅 / 사업기획</div>
+    <div class="mt-14 reveal show">
+      <h3 class="text-2xl md:text-3xl font-bold text-center">게임플레이 영상</h3>
+      <div class="mt-6 bg-slate-100 rounded-2xl shadow hvr-rise aspect-video">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/IdZO5JSM0uk?si=DoI0nOFkBKdJxW2V&autoplay=1&mute=1&loop=1&playlist=IdZO5JSM0uk" title="NumberPlanet Gameplay" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-slate-900 text-slate-300 py-10">
-  <div class="max-w-6xl mx-auto px-4 text-center">
-    <p class="text-lg font-semibold">© 2025 NumberPlanet Game Studio</p>
-    <p class="text-slate-400 text-sm mt-1">사칙연산을 게임으로 배우는 즐거움</p>
+<section id="team" class="section bg-white">
+  <div class="container-ll">
+    <h2 class="text-center text-3xl md:text-4xl font-bold">팀 소개</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-6">
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림1.png" alt="박재정" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">박재정</div><div class="text-slate-500 text-sm">기획 / 프로젝트 총괄</div>
+      </div>
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림2.png" alt="이건욱" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">이건욱</div><div class="text-slate-500 text-sm">프로그래머</div>
+      </div>
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림3.png" alt="장영환" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">장영환</div><div class="text-slate-500 text-sm">아티스트</div>
+      </div>
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림4.png" alt="이진영" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">이진영</div><div class="text-slate-500 text-sm">마케팅 / 사업기획</div>
+      </div>
+    </div>
   </div>
-</footer>
+</section>
 
 </body>
 </html>
