@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NumberPlanet – Full Page v10</title>
+
+<!-- Fonts & Tailwind (CDN) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --np-primary:#3b82f6; --np-secondary:#14b8a6; --np-accent:#8b5cf6;
+    --np-ink:#0f172a; --np-muted:#64748b;
+    --np-hero:linear-gradient(180deg,#F6FAFF 0%,#F1F6FF 100%);
+  }
+  html,body{font-family:'Noto Sans KR',ui-sans-serif,system-ui;word-break:keep-all;color:var(--np-ink)}
+  html{scroll-behavior:smooth}
+  .container-ll{max-width:1152px;margin:0 auto;padding:0 20px}
+  .section{padding:72px 0}
+  .hero-bg{background:var(--np-hero)}
+  .card{background:#fff;border:1px solid rgb(226 232 240);border-radius:16px;box-shadow:0 10px 24px -14px rgba(2,6,23,.18)}
+  .ico-bubble{width:3.75rem;height:3.75rem;border-radius:9999px;display:grid;place-items:center}
+
+  /* 스토어 배지 */
+  .store-row{display:flex;gap:.75rem;flex-wrap:wrap}
+  .store{
+    display:inline-flex;align-items:center;gap:.6rem;background:#0f0f10;color:#fff;border-radius:.9rem;
+    padding:.65rem .9rem;line-height:1;box-shadow:0 14px 28px -18px rgba(0,0,0,.6);
+    transition:transform .18s ease, box-shadow .18s ease, filter .18s ease
+  }
+  .store:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 20px 34px -20px rgba(0,0,0,.7);filter:brightness(1.05)}
+  .store svg{width:22px;height:22px}
+
+  /* 로드맵 타임라인 */
+  .timeline{position:relative;margin-top:28px}
+  .timeline:before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgb(203 213 225);transform:translateX(-50%)}
+  .milestone{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin:44px 0}
+  .milestone .node{position:absolute;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:9999px;color:#fff;display:grid;place-items:center;font-weight:800;box-shadow:0 0 0 6px rgba(59,130,246,.12);z-index:2}
+  .milestone .arm{position:absolute;top:16px;height:2px;width:calc(50% - 32px);background:rgb(203 213 225);z-index:1}
+  .milestone.right .arm{left:50%} .milestone.left .arm{right:50%}
+  .step{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(2,6,23,.08);padding:28px 28px}
+  .step:before{content:'';position:absolute;left:0;right:0;top:0;height:6px;background:currentColor;opacity:.95}
+  .blue{color:#3b82f6} .teal{color:#14b8a6} .green{color:#22c55e} .purple{color:#8b5cf6}
+
+  /* 모션 */
+  .hvr-rise{transition:transform .18s ease, box-shadow .18s ease}
+  .hvr-rise:hover{transform:translateY(-4px); box-shadow:0 18px 36px -18px rgba(2,6,23,.28)}
+  .reveal{opacity:0; transform:translateY(10px); transition:opacity .45s ease, transform .45s ease}
+  .reveal.show{opacity:1; transform:none}
+  .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0% 2px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .2s ease}
+  .link-underline:hover{background-size:100% 2px}
+
+  /* 헤더 */
+  .np-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgb(226 232 240)}
+  .np-nav a{padding:.5rem .75rem;border-radius:.5rem;color:#334155;font-weight:600}
+  .np-nav a:hover{background:rgba(59,130,246,.08);color:#1d4ed8}
+  .np-nav a.active{background:rgba(59,130,246,.12);color:#1d4ed8}
+  .np-mobile{display:none}
+  @media (max-width: 900px){.np-desktop{display:none}.np-mobile{display:block}}
+</style>
+
+<!-- Inline Icons -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="ico-check" viewBox="0 0 16 12"><path d="M2 6l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ico-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+  <symbol id="ico-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z" fill="currentColor"/></symbol>
+  <symbol id="ico-div" viewBox="0 0 24 24"><path d="M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="6" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></symbol>
+  <symbol id="ico-gplay" viewBox="0 0 24 24">
+    <path d="M3 2l13 10L3 22z" fill="#34A853"/>
+    <path d="M3 2l8.5 6.5L9 12 3 2z" fill="#FBBC04"/>
+    <path d="M3 22l6-10 2.5 3.5L3 22z" fill="#EA4335"/>
+    <path d="M11.5 8.5L16 11 11.5 13.5 9 12z" fill="#4285F4"/>
+  </symbol>
+  <symbol id="ico-onestore" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="#E21A3A"/>
+    <path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-feedback" viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z" fill="currentColor"/></symbol>
+  <symbol id="ico-update" viewBox="0 0 24 24"><path d="M12 6v3l4 2-4 2v3l-6-5z" fill="currentColor"/></symbol>
+  <symbol id="ico-quality" viewBox="0 0 24 24"><path d="M12 2l9 4-9 4-9-4 9-4zm0 6l9 4-9 4-9-4 9-4zm0 8l9 4-9 4-9-4 9-4z" fill="currentColor"/></symbol>
+</svg>
+</head>
+<body class="antialiased bg-white">
+
+<!-- HEADER -->
+<header class="np-header">
+  <div class="container-ll py-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <img src="./images/LOGO_BICI_A.png" alt="NumberPlanet" style="height:32px;width:auto;object-fit:contain">
+      <strong class="text-slate-800">NumberPlanet</strong>
+    </div>
+    <nav class="np-nav np-desktop flex items-center gap-1">
+      <a href="#intro">게임소개</a>
+      <a href="#features">특징</a>
+      <a href="#team">팀소개</a>
+      <a href="#roadmap">로드맵</a>
+      <a href="#contact">문의</a>
+    </nav>
+    <div class="np-mobile">
+      <details>
+        <summary class="px-3 py-1.5 border rounded-md text-sm cursor-pointer select-none">메뉴</summary>
+        <div class="mt-2 bg-white border rounded-md p-2 grid">
+          <a href="#intro" class="py-1">게임소개</a>
+          <a href="#features" class="py-1">특징</a>
+          <a href="#team" class="py-1">팀소개</a>
+          <a href="#roadmap" class="py-1">로드맵</a>
+          <a href="#contact" class="py-1">문의</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-bg">
+  <div class="container-ll py-16 text-center">
+    <img src="./images/LOGO_BICI_A.png" alt="NumberPlanet 로고" class="mx-auto max-w-[900px] h-auto object-contain reveal show">
+    <h1 class="text-4xl md:text-5xl font-extrabold mt-6 reveal show">사칙연산을 게임으로!</h1>
+    <p class="text-slate-700 text-lg md:text-2xl mt-3 reveal show">재미있는 게임을 통해 수학 실력을 키워보세요</p>
+
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="card p-6 text-center hvr-rise reveal show">
+        <div class="ico-bubble bg-blue-100 mx-auto mb-4"><svg class="w-6 h-6 text-blue-600"><use href="#ico-plus"/></svg></div>
+        <h3 class="font-semibold text-lg">재미있는 게임</h3>
+        <p class="text-slate-600 text-sm">지루한 공부 대신 즐거운 게임으로</p>
+      </div>
+      <div class="card p-6 text-center hvr-rise reveal show">
+        <div class="ico-bubble bg-cyan-100 mx-auto mb-4"><svg class="w-6 h-6 text-cyan-600"><use href="#ico-check"/></svg></div>
+        <h3 class="font-semibold text-lg">학습 효과</h3>
+        <p class="text-slate-600 text-sm">자연스럽게 수학 실력 향상</p>
+      </div>
+      <div class="card p-6 text-center hvr-rise reveal show">
+        <div class="ico-bubble bg-indigo-100 mx-auto mb-4"><svg class="w-6 h-6 text-indigo-600"><use href="#ico-star"/></svg></div>
+        <h3 class="font-semibold text-lg">성취감</h3>
+        <p class="text-slate-600 text-sm">단계별 도전과 보상 시스템</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 mt-7 reveal show">
+      <a href="#start" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-blue-500 text-white font-semibold shadow hvr-rise">게임 시작하기</a>
+      <a href="#intro" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border-2 border-blue-500 text-blue-600 font-semibold hvr-rise">더 알아보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro" class="section bg-white">
+  <div class="container-ll">
+    <h2 class="text-center text-3xl md:text-4xl font-bold reveal show">게임 소개</h2>
+    <p class="text-center text-slate-600 mt-3 reveal show">넘버플래닛은 사칙연산을 재미있는 게임으로 만든 학습 플랫폼입니다</p>
+
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="rounded-2xl shadow-lg overflow-hidden hvr-rise reveal show">
+        <img src="./images/poster.png" alt="게임 플레이 포스터" class="w-full h-auto object-cover">
+      </div>
+      <div class="reveal show">
+        <!-- 앱스토어 제거, Google Play + ONE store만 유지 -->
+        <div class="store-row mb-4">
+          <a class="store" href="#" title="Google Play">
+            <svg><use href="#ico-gplay"/></svg>
+            <div class="text-left">
+              <div class="text-[10px] leading-none opacity-80">GET IT ON</div>
+              <div class="text-[14px] leading-tight font-semibold">Google Play</div>
+            </div>
+          </a>
+          <a class="store" href="#" title="ONE store">
+            <svg><use href="#ico-onestore"/></svg>
+            <div class="text-left">
+              <div class="text-[10px] leading-none opacity-80">Get it on</div>
+              <div class="text-[14px] leading-tight font-semibold">ONE store</div>
+            </div>
+          </a>
+        </div>
+        <p class="text-slate-700">
+          현재 출시된 첫 번째 게임으로, 덧셈을 재미있게 배울 수 있는 게임입니다.
+          다양한 레벨과 도전 과제를 통해 자연스럽게 덧셈 실력을 키울 수 있어요.
+        </p>
+        <ul class="mt-5 space-y-3">
+          <li class="flex items-center gap-3">
+            <span class="ico-bubble bg-blue-100 w-8 h-8"><svg class="w-4 h-4 text-blue-600"><use href="#ico-check"/></svg></span>
+            <span class="text-slate-700">빠른 이해가 가능한 드래그 &amp; 사칙 연산</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="ico-bubble bg-blue-100 w-8 h-8"><svg class="w-4 h-4 text-blue-600"><use href="#ico-check"/></svg></span>
+            <span class="text-slate-700">보드 &amp; 숫자 확장을 통한 점진적 난이도 상승과 성장</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="ico-bubble bg-blue-100 w-8 h-8"><svg class="w-4 h-4 text-blue-600"><use href="#ico-check"/></svg></span>
+            <span class="text-slate-700">글로벌, 친구들과의 시즌 랭킹 경쟁</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 🎬 게임플레이 영상 -->
+    <div class="mt-14 reveal show">
+      <h3 class="text-2xl md:text-3xl font-bold text-center">게임플레이 영상</h3>
+      <div class="mt-6 bg-slate-100 rounded-2xl shadow hvr-rise overflow-hidden">
+        <div class="aspect-video">
+          <iframe
+            src="https://www.youtube.com/embed/IdZO5JSM0uk"
+            title="NumberPlanet Gameplay"
+            frameborder="0"
+            allowfullscreen
+            class="w-full h-full">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- 모바일 게임 화면 샘플 -->
+    <div class="mt-14 reveal show">
+      <h3 class="text-2xl md:text-3xl font-bold text-center">모바일 게임 화면</h3>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
+        <div class="bg-slate-100 rounded-3xl shadow p-6 w-[432px] hvr-rise">
+          <div class="bg-black rounded-2xl p-4 mx-auto" style="width:280px">
+            <div class="bg-slate-200 rounded-xl grid place-items-center" style="aspect-ratio:9/19">
+              <div class="text-center">
+                <div class="ico-bubble bg-blue-500 text-white mx-auto mb-2"><svg class="w-6 h-6 text-white"><use href="#ico-plus"/></svg></div>
+                <p class="text-slate-600 text-sm">게임 플레이 화면</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-100 rounded-3xl shadow p-6 w-[432px] hvr-rise">
+          <div class="bg-black rounded-2xl p-4 mx-auto" style="width:280px">
+            <div class="bg-slate-200 rounded-xl grid place-items-center" style="aspect-ratio:9/19">
+              <div class="text-center">
+                <div class="ico-bubble bg-cyan-500 text-white mx-auto mb-2"><svg class="w-6 h-6 text-white"><use href="#ico-plus"/></svg></div>
+                <p class="text-slate-600 text-sm">게임 랭킹 화면</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section bg-slate-50">
+  <div class="container-ll">
+    <h2 class="text-center text-3xl md:text-4xl font-bold reveal show">게임 특징</h2>
+    <p class="text-center text-slate-600 mt-3 reveal show">넘버플래닛에서 특별한 숫자 모험을 즐겨보세요</p>
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card p-5 hvr-rise reveal show">
+        <div class="ico-bubble w-10 h-10 bg-blue-100 mb-3"><svg class="w-5 h-5 text-blue-600"><use href="#ico-star"/></svg></div>
+        <h3 class="font-semibold">재미있는 게임플레이</h3>
+        <p class="text-slate-600 text-sm mt-1">지루한 반복이 아닌 이야기가 있는 게임으로 연산 능력을 길러보세요</p>
+      </div>
+      <div class="card p-5 hvr-rise reveal show">
+        <div class="ico-bubble w-10 h-10 bg-blue-100 mb-3"><svg class="w-5 h-5 text-blue-600"><use href="#ico-check"/></svg></div>
+        <h3 class="font-semibold">성취 시스템</h3>
+        <p class="text-slate-600 text-sm mt-1">일일 보상을 통해 반복, 지속적인 학습 동기를 제공합니다</p>
+      </div>
+      <div class="card p-5 hvr-rise reveal show">
+        <div class="ico-bubble w-10 h-10 bg-blue-100 mb-3"><svg class="w-5 h-5 text-blue-600"><use href="#ico-plus"/></svg></div>
+        <h3 class="font-semibold">학습 효과</h3>
+        <p class="text-slate-600 text-sm mt-1">게임을 통해 자연스럽게 연산 능력과 수학적 사고력을 기를 수 있습니다</p>
+      </div>
+      <div class="card p-5 hvr-rise reveal show">
+        <div class="ico-bubble w-10 h-10 bg-blue-100 mb-3"><svg class="w-5 h-5 text-blue-600"><use href="#ico-check"/></svg></div>
+        <h3 class="font-semibold">학습 관리</h3>
+        <p class="text-slate-600 text-sm mt-1">개인별 학습 진도와 성취도를 한눈에 관리합니다</p>
+      </div>
+      <div class="card p-5 hvr-rise reveal show">
+        <div class="ico-bubble w-10 h-10 bg-blue-100 mb-3"><svg class="w-5 h-5 text-blue-600"><use href="#ico-star"/></svg></div>
+        <h3 class="font-semibold">친구와 경쟁</h3>
+        <p class="text-slate-600 text-sm mt-1">친구들과 점수를 비교하며 건전한 경쟁을 즐길 수 있습니다</p>
+      </div>
+      <div class="card p-5 hvr-rise reveal show">
+        <div class="ico-bubble w-10 h-10 bg-blue-100 mb-3"><svg class="w-5 h-5 text-blue-600"><use href="#ico-div"/></svg></div>
+        <h3 class="font-semibold">모바일 최적화</h3>
+        <p class="text-slate-600 text-sm mt-1">언제 어디서나 스마트폰으로 편리하게 게임을 즐기세요</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="section bg-white">
+  <div class="container-ll">
+    <h2 class="text-center text-3xl md:text-4xl font-bold reveal show">팀 소개</h2>
+    <p class="text-center text-slate-600 mt-3 reveal show">교육과 게임을 사랑하는 전문가들이 모여 만든 팀입니다</p>
+
+    <div class="card p-5 mt-6 flex flex-col md:flex-row gap-5 items-center hvr-rise reveal show">
+      <img src="./images/LOGO_BICI_A.png" alt="넘버플래닛 로고" class="w-[180px] h-auto object-contain">
+      <div class="text-slate-700 text-sm leading-6">
+        우리는 교육과 게임의 완벽한 결합을 추구하는 인디 게임 스튜디오입니다. 아이들이 수학을 재미있게 배울 수 있도록 혁신적인 게임을 개발하고 있습니다.
+        <div class="mt-3 flex gap-8 text-center">
+          <div><div class="font-bold text-xl">2025</div><div class="text-slate-500 text-xs">설립년도</div></div>
+          <div><div class="font-bold text-xl">4</div><div class="text-slate-500 text-xs">팀원 수</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-6">
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림1.png" alt="박재정" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">박재정</div>
+        <div class="text-slate-500 text-sm">기획 / 프로젝트 총괄</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left space-y-1 list-disc list-inside">
+          <li>Number Planet 기획 및 총괄 전 과정 리드</li>
+          <li>총 18년 경력의 시스템, 콘텐츠 풀스택 기획자</li>
+          <li>前 CCR 피디, 前 구로발게임즈 콘텐츠 파트장 등</li>
+          <li>초기 기획부터 런칭 및 라이브 운영까지 다수 프로젝트 경험</li>
+        </ul>
+      </div>
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림3.png" alt="장영환" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">장영환</div>
+        <div class="text-slate-500 text-sm">아티스트</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left space-y-1 list-disc list-inside">
+          <li>캐릭터/배경/UI디자인</li>
+          <li>10년 이상 2D 그래픽 &amp; UI 전문 아티스트</li>
+          <li>前 스튜디오한 아트 실장, 前 더블빅토리 아트디렉터 등</li>
+          <li>캐주얼하고 직관적인 디자인 전문 작업 수행</li>
+        </ul>
+      </div>
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림2.png" alt="이건욱" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">이건욱</div>
+        <div class="text-slate-500 text-sm">프로그래머</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left space-y-1 list-disc list-inside">
+          <li>클라이언트/서버 로직 구현 담당</li>
+          <li>다양한 장르의 개발 경험을 보유한 풀사이클 개발자</li>
+          <li>캐주얼•MMORPG•교육용 앱 클라이언트 개발 담당</li>
+          <li>개인 프로젝트 및 외주를 통한 초기부터 런칭까지 전 과정 경험</li>
+        </ul>
+      </div>
+      <div class="card p-5 text-center hvr-rise reveal show">
+        <img src="./images/그림4.png" alt="이진영" class="rounded-full mx-auto mb-3 w-24 h-24 object-cover">
+        <div class="font-semibold">이진영</div>
+        <div class="text-slate-500 text-sm">마케팅 / 사업기획</div>
+        <ul class="text-slate-600 text-sm mt-2 text-left space-y-1 list-disc list-inside">
+          <li>마케팅 전략 및 서비스 운영 담당</li>
+          <li>마케팅 및 사업 기획, 서비스 운영 경력 보유</li>
+          <li>前 넥스터 경영기획 팀, 前 디캐릭 이벤트 마케팅 담당</li>
+          <li>팬 커뮤니티 운영 및 이벤트·사업 기획 등 다방면 경험</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center reveal show">
+      <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-blue-500 text-white font-semibold hvr-rise">
+        <svg class="w-4 h-4 text-white"><use href="#ico-check"/></svg>문의하기
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="section bg-slate-50">
+  <div class="container-ll">
+    <h2 class="text-center text-3xl md:text-4xl font-bold reveal show">개발 로드맵</h2>
+    <p class="text-center text-slate-600 mt-2 reveal show">넘버플래닛의 미래 계획을 확인해보세요</p>
+
+    <div class="timeline">
+      <div class="milestone right">
+        <span class="node" style="background:#3b82f6">1</span>
+        <span class="arm"></span>
+        <div></div>
+        <div class="step blue hvr-rise reveal show">
+          <div class="text-xs text-slate-500 mb-1">2026 Q1 · 더하기</div>
+          <h3 class="font-semibold text-slate-900">더하기의 왕</h3>
+          <p class="text-slate-600 text-sm">출시 완료 – 덧셈 학습을 위한 첫 번째 게임</p>
+          <ul class="text-slate-700 text-sm mt-1 list-disc ml-5">
+            <li>기본 덧셈 게임</li>
+            <li>레벨 시스템</li>
+            <li>점수 기록</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="milestone left">
+        <span class="node" style="background:#14b8a6">2</span>
+        <span class="arm"></span>
+        <div class="step teal hvr-rise reveal show">
+          <div class="text-xs text-slate-500 mb-1">2026 Q2 · 빼기</div>
+          <h3 class="font-semibold text-slate-900">빼기의 왕</h3>
+          <p class="text-slate-600 text-sm">개발 예정 – 뺄셈 학습을 위한 두 번째 게임</p>
+          <ul class="text-slate-700 text-sm mt-1 list-disc ml-5">
+            <li>뺄셈 게임 플레이</li>
+            <li>난이도 조절</li>
+            <li>성취 시스템</li>
+          </ul>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="milestone right">
+        <span class="node" style="background:#22c55e">3</span>
+        <span class="arm"></span>
+        <div></div>
+        <div class="step green hvr-rise reveal show">
+          <div class="text-xs text-slate-500 mb-1">2026 Q3 · 곱하기</div>
+          <h3 class="font-semibold text-slate-900">곱하기의 왕 (예정)</h3>
+          <p class="text-slate-600 text-sm">기획 단계 – 곱셈 학습을 위한 세 번째 게임</p>
+          <ul class="text-slate-700 text-sm mt-1 list-disc ml-5">
+            <li>곱셈 게임</li>
+            <li>시각적 학습</li>
+            <li>단계별 진행</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="milestone left">
+        <span class="node" style="background:#8b5cf6">4</span>
+        <span class="arm"></span>
+        <div class="step purple hvr-rise reveal show">
+          <div class="text-xs text-slate-500 mb-1">2027 Q4 · 나누기</div>
+          <h3 class="font-semibold text-slate-900">나누기의 왕 (예정)</h3>
+          <p class="text-slate-600 text-sm">계획 중 – 나눗셈 학습을 위한 네 번째 게임</p>
+          <ul class="text-slate-700 text-sm mt-1 list-disc ml-5">
+            <li>나눗셈 게임</li>
+            <li>개념 이해</li>
+            <li>실전 연습</li>
+          </ul>
+        </div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="card p-6 mt-8 hvr-rise reveal show">
+      <h3 class="font-semibold">꾸준하고 지속적인 재미</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2 text-sm text-slate-700">
+        <div class="flex items-start gap-2">
+          <span class="ico-bubble w-8 h-8 bg-blue-100"><svg class="w-4 h-4 text-blue-600"><use href="#ico-feedback"/></svg></span>
+          <div><strong class="link-underline">사용자 피드백</strong><br>실제 사용자의 의견을 적극 반영</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="ico-bubble w-8 h-8 bg-blue-100"><svg class="w-4 h-4 text-blue-600"><use href="#ico-update"/></svg></span>
+          <div><strong class="link-underline">정기 업데이트</strong><br>매월 새로운 기능과 개선사항 제공</div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="ico-bubble w-8 h-8 bg-blue-100"><svg class="w-4 h-4 text-blue-600"><use href="#ico-quality"/></svg></span>
+          <div><strong class="link-underline">품질 향상</strong><br>더 나은 사용자 경험을 위한 지속적 개선</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-200 py-12">
+  <div class="container-ll">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <div class="text-lg font-semibold">넘버플래닛</div>
+        <div class="text-slate-400 text-sm">NumberPlanet Game Studio</div>
+        <p class="text-slate-400 text-sm mt-2">사칙연산을 게임으로 구현한 학습형 게임 플랫폼을 개발하는 인디 게임 스튜디오입니다.</p>
+      </div>
+      <div>
+        <div class="text-lg font-semibold">게임</div>
+        <ul class="text-slate-400 text-sm mt-2 space-y-1">
+          <li>더하기의 왕</li><li>빼기의 왕 (예정)</li><li>곱하기의 왕 (예정)</li><li>나누기의 왕 (예정)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-lg font-semibold">빠른 링크</div>
+        <ul class="text-slate-400 text-sm mt-2 space-y-1">
+          <li>다운로드</li><li>게임 가이드</li><li>고객지원</li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-slate-500 text-xs mt-6">© 2025 넘버플래닛 게임 스튜디오. All rights reserved.</div>
+    <div class="text-slate-500 text-xs">개인정보처리방침 · 이용약관 · 문의하기</div>
+  </div>
+  <a id="contact"></a>
+</footer>
+
+<script>
+/* 활성 섹션 하이라이트 및 앵커 오프셋 */
+(function(){
+  const links = Array.from(document.querySelectorAll('.np-nav a'));
+  const ids = links.map(a => a.getAttribute('href')).filter(h=>h && h.startsWith('#'));
+  const sections = ids.map(id => document.querySelector(id)).filter(Boolean);
+
+  function onScroll(){
+    const y = window.scrollY;
+    let idx = 0;
+    for (let i=0;i<sections.length;i++){
+      const r = sections[i].getBoundingClientRect();
+      const top = r.top + window.scrollY - 120; /* 헤더 보정 */
+      if (y >= top) idx = i;
+    }
+    links.forEach(a => a.classList.remove('active'));
+    const cur = links.find(a => a.getAttribute('href') === ids[idx]);
+    if (cur) cur.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('load', onScroll);
+
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      const top = el.getBoundingClientRect().top + window.scrollY - 72; /* 헤더 높이 */
+      window.scrollTo({top, behavior:'smooth'});
+      history.replaceState(null, '', id);
+    });
+  });
+})();
+
+/* 등장 애니메이션 */
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
