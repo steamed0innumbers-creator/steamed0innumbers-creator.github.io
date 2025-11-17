@@ -4,53 +4,61 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NumberPlanet – 더하기의 왕</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-  :root{--np-primary:#3b82f6;--np-secondary:#14b8a6;--np-accent:#8b5cf6;--np-ink:#0f172a;--np-muted:#64748b;--np-hero:linear-gradient(180deg,#F6FAFF 0%,#F1F6FF 100%)}
+  :root{
+    --np-primary:#3b82f6; --np-secondary:#14b8a6; --np-accent:#8b5cf6;
+    --np-ink:#0f172a; --np-muted:#64748b;
+    --np-hero:linear-gradient(180deg,#F6FAFF 0%,#F1F6FF 100%);
+  }
   html,body{font-family:'Noto Sans KR',ui-sans-serif,system-ui;word-break:keep-all;color:var(--np-ink)}
-  html{scroll-behavior:smooth}
   .container-ll{max-width:1152px;margin:0 auto;padding:0 20px}
   .section{padding:72px 0}
   .hero-bg{background:var(--np-hero)}
   .card{background:#fff;border:1px solid rgb(226 232 240);border-radius:16px;box-shadow:0 10px 24px -14px rgba(2,6,23,.18)}
-  .ico-bubble{width:3.5rem;height:3.5rem;border-radius:9999px;display:grid;place-items:center;font-weight:800}
-  .store-row{display:flex;gap:.75rem;flex-wrap:wrap}
-  .store{display:inline-flex;align-items:center;gap:.6rem;background:#0f0f10;color:#fff;border-radius:.9rem;padding:.65rem .9rem;line-height:1;box-shadow:0 14px 28px -18px rgba(0,0,0,.6);transition:transform .18s,box-shadow .18s,filter .18s}
-  .store:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 20px 34px -20px rgba(0,0,0,.7);filter:brightness(1.05)}
-  .store svg{width:22px;height:22px}
-  .timeline:before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgb(203 213 225);transform:translateX(-50%)}
-  .milestone{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin:44px 0}
-  .hvr-rise{transition:transform .18s ease,box-shadow .18s ease}
-  .hvr-rise:hover{transform:translateY(-4px);box-shadow:0 18px 36px -18px rgba(2,6,23,.28)}
+  .ico-bubble{width:3.75rem;height:3.75rem;border-radius:9999px;display:grid;place-items:center}
+  .store{display:inline-flex;align-items:center;gap:.6rem;background:#0f0f10;color:#fff;border-radius:.9rem;padding:.65rem .9rem;line-height:1;box-shadow:0 14px 28px -18px rgba(0,0,0,.6);transition:.18s}
+  .store:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.05)}
+  .hvr-rise{transition:transform .18s ease, box-shadow .18s ease}
+  .hvr-rise:hover{transform:translateY(-4px); box-shadow:0 18px 36px -18px rgba(2,6,23,.28)}
   .np-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgb(226 232 240)}
   .np-nav a{padding:.5rem .75rem;border-radius:.5rem;color:#334155;font-weight:600}
   .np-nav a:hover{background:rgba(59,130,246,.08);color:#1d4ed8}
-  @media(max-width:900px){.np-desktop{display:none}.np-mobile{display:block}}
 </style>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
-  <symbol id="ico-check" viewBox="0 0 16 12"><path d="M2 6l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-  <symbol id="ico-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ico-check" viewBox="0 0 16 12"><path d="M2 6l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="ico-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
   <symbol id="ico-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z" fill="currentColor"/></symbol>
-  <symbol id="ico-div" viewBox="0 0 24 24"><path d="M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="6" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/></symbol>
-  <symbol id="ico-gplay" viewBox="0 0 24 24"><path d="M3 2l13 10L3 22z" fill="#34A853"/><path d="M3 2l8.5 6.5L9 12 3 2z" fill="#FBBC04"/><path d="M3 22l6-10 2.5 3.5L3 22z" fill="#EA4335"/><path d="M11.5 8.5L16 11 11.5 13.5 9 12z" fill="#4285F4"/></symbol>
-  <symbol id="ico-onestore" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#E21A3A"/><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ico-gplay" viewBox="0 0 24 24">
+    <path d="M3 2l13 10L3 22z" fill="#34A853"/>
+    <path d="M3 2l8.5 6.5L9 12 3 2z" fill="#FBBC04"/>
+    <path d="M3 22l6-10 2.5 3.5L3 22z" fill="#EA4335"/>
+    <path d="M11.5 8.5L16 11 11.5 13.5 9 12z" fill="#4285F4"/>
+  </symbol>
+  <symbol id="ico-onestore" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="#E21A3A"/>
+    <path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2"/>
+  </symbol>
 </svg>
-</head>
 
+</head>
 <body class="antialiased bg-white">
 
+
+<!-- HEADER -->
 <header class="np-header">
-  <div class="container-ll py-3 flex items-center justify-between gap-3">
+  <div class="container-ll py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <img src="./images/LOGO BICI_A.png" class="h-8 w-auto object-contain">
+      <img src="./images/LOGO BICI_A.png" class="h-8 object-contain">
       <strong class="text-slate-800">NumberPlanet</strong>
     </div>
-    <nav class="np-nav np-desktop flex items-center gap-1">
+    <nav class="np-nav flex items-center gap-1">
       <a href="#intro">게임소개</a>
       <a href="#features">특징</a>
       <a href="#team">팀소개</a>
@@ -60,11 +68,14 @@
   </div>
 </header>
 
+
+<!-- HERO -->
 <section class="hero-bg">
   <div class="container-ll py-16 text-center">
     <img src="./images/LOGO BICI_A.png" class="mx-auto max-w-[900px]">
     <h1 class="text-4xl md:text-5xl font-extrabold mt-6">사칙연산을 게임으로!</h1>
     <p class="text-slate-700 text-lg md:text-2xl mt-3">재미있는 게임을 통해 수학 실력을 키워보세요</p>
+
     <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div class="card p-6 text-center hvr-rise">
         <div class="ico-bubble bg-blue-100 mx-auto mb-4"><svg class="w-6 h-6 text-blue-600"><use href="#ico-plus"/></svg></div>
@@ -82,16 +93,11 @@
         <p class="text-slate-600 text-sm">단계별 도전과 보상 시스템</p>
       </div>
     </div>
-
-    <div class="flex flex-wrap justify-center gap-3 mt-7">
-      <a href="#start" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-blue-500 text-white font-semibold shadow hvr-rise">게임 시작하기</a>
-      <a href="#intro" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border-2 border-blue-500 text-blue-600 font-semibold hvr-rise">더 알아보기</a>
-    </div>
   </div>
 </section>
 
 
-<!-- INTRO SECTION (포스터 + 게임 진행방식 수정된 부분) -->
+<!-- INTRO -->
 <section id="intro" class="section bg-white">
   <div class="container-ll">
 
@@ -99,55 +105,56 @@
     <p class="text-center text-slate-600 mt-3">넘버플래닛은 사칙연산을 재미있는 게임으로 만든 학습 플랫폼입니다</p>
 
     <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-      <!-- 🔵 포스터 교체됨 -->
       <div class="rounded-2xl shadow-lg overflow-hidden hvr-rise">
-        <img src="./images/KOA_MWDROP_B.png" class="w-full h-auto object-cover">
+        <img src="./images/KOA_MWDROP_B.png" class="w-full">
       </div>
-
       <div>
-        <div class="store-row mb-4">
-          <a class="store" href="#"><svg><use href="#ico-gplay"></use></svg><div><div class="text-[10px] opacity-80">GET IT ON</div><div class="text-[14px] font-semibold">Google Play</div></div></a>
-          <a class="store" href="#"><svg><use href="#ico-onestore"></use></svg><div><div class="text-[10px] opacity-80">Get it on</div><div class="text-[14px] font-semibold">ONE store</div></div></a>
+        <div class="flex gap-3 mb-4">
+          <a class="store" href="#"><svg><use href="#ico-gplay"/></svg><span>Google Play</span></a>
+          <a class="store" href="#"><svg><use href="#ico-onestore"/></svg><span>ONE store</span></a>
         </div>
-
-        <p class="text-slate-700">현재 출시된 첫 번째 게임으로, 덧셈을 재미있게 배울 수 있는 게임입니다. 다양한 레벨과 도전 과제를 통해 자연스럽게 덧셈 실력을 키울 수 있습니다.</p>
-
-        <ul class="mt-5 space-y-3">
-          <li class="flex items-center gap-3"><span class="ico-bubble bg-blue-100 w-8 h-8"><svg class="w-4 h-4 text-blue-600"><use href="#ico-check"></use></svg></span><span>빠른 이해가 가능한 드래그 & 사칙연산</span></li>
-          <li class="flex items-center gap-3"><span class="ico-bubble bg-blue-100 w-8 h-8"><svg class="w-4 h-4 text-blue-600"><use href="#ico-check"></use></svg></span><span>보드 & 숫자 확장을 통한 점진적 난이도 상승과 성장</span></li>
-          <li class="flex items-center gap-3"><span class="ico-bubble bg-blue-100 w-8 h-8"><svg class="w-4 h-4 text-blue-600"><use href="#ico-check"></use></svg></span><span>글로벌, 친구들과의 시즌 랭킹 경쟁</span></li>
-        </ul>
-
+        <p class="text-slate-700">
+          현재 출시된 첫 번째 게임으로, 덧셈을 재미있게 배울 수 있는 게임입니다.  
+          다양한 레벨과 도전 과제를 통해 자연스럽게 덧셈 실력을 키울 수 있습니다.
+        </p>
       </div>
     </div>
 
-    <!-- 🔵 게임 진행 방식 (요청하신 텍스트로 정확히 교체됨) -->
+    <!-- 통합된 게임 진행 방식 -->
     <div class="mt-12 bg-slate-50 rounded-3xl p-12 hvr-rise">
       <h3 class="text-2xl md:text-3xl font-bold text-center">게임 진행 방식</h3>
+      <p class="text-center text-slate-600 mt-2">누구나 쉽게 이해할 수 있는 간단한 플레이 구조입니다.</p>
 
-      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
 
         <div>
           <div class="ico-bubble bg-blue-500 text-white text-3xl font-bold mx-auto mb-4">1</div>
           <div class="font-bold text-xl">문제 확인</div>
-          <p class="text-slate-700 text-base mt-2">주어진 숫자를 확인하고 목표 수를 맞추기 위한 연산을 구상합니다.</p>
+          <p class="text-slate-700 text-base mt-2">
+            주어진 숫자를 확인하고 목표 수를 맞추기 위한 연산을 구상합니다.
+          </p>
         </div>
 
         <div>
           <div class="ico-bubble bg-cyan-500 text-white text-3xl font-bold mx-auto mb-4">2</div>
           <div class="font-bold text-xl">연산 진행</div>
-          <p class="text-slate-700 text-base mt-2">드래그로 숫자를 연결하여 더하기 또는 조합을 완성합니다.</p>
+          <p class="text-slate-700 text-base mt-2">
+            드래그로 숫자를 연결하여 더하기 또는 조합을 완성합니다.
+          </p>
         </div>
 
         <div>
           <div class="ico-bubble bg-indigo-500 text-white text-3xl font-bold mx-auto mb-4">3</div>
           <div class="font-bold text-xl">스테이지 클리어</div>
-          <p class="text-slate-700 text-base mt-2">목표 수를 맞추면 다음 스테이지로 진입합니다.</p>
+          <p class="text-slate-700 text-base mt-2">
+            목표 수를 맞추면 다음 스테이지로 진입합니다.
+          </p>
         </div>
 
       </div>
     </div>
+  </div>
+</section>
 
 
 <!-- FEATURES -->
@@ -194,4 +201,3 @@
 
 </body>
 </html>
-
