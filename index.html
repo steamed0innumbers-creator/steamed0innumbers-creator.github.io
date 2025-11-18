@@ -39,8 +39,9 @@
   .np-nav a.active{background:rgba(59,130,246,.12);color:#1d4ed8}
   @media (max-width:900px){.np-desktop{display:none}.np-mobile{display:block}}
 
-  img,iframe,video {max-width:100%;height:auto;}
-  * {box-sizing:border-box;}
+  /* ===== 반응형 & 레이아웃 보정 추가 ===== */
+  img,iframe,video{max-width:100%;height:auto;}
+  *{box-sizing:border-box;}
   @media(max-width:768px){
     .timeline:before{display:none;}
     .milestone{grid-template-columns:1fr!important;}
@@ -130,7 +131,14 @@
       <h3 class="text-2xl md:text-3xl font-bold text-center">게임플레이 영상</h3>
       <div class="mt-6 bg-slate-100 rounded-2xl shadow hvr-rise">
         <div class="aspect-video">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/IdZO5JSM0uk?si=DoI0nOFkBKdJxW2V&autoplay=1&mute=1&loop=1&playlist=IdZO5JSM0uk" title="NumberPlanet Gameplay" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe
+            width="100%"
+            style="height:100%;width:100%;"
+            src="https://www.youtube.com/embed/IdZO5JSM0uk?si=DoI0nOFkBKdJxW2V&autoplay=1&mute=1&loop=1&playlist=IdZO5JSM0uk"
+            title="NumberPlanet Gameplay"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen></iframe>
         </div>
       </div>
     </div>
@@ -401,5 +409,3 @@
 </footer>
 </body>
 </html>
-
-
